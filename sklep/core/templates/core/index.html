@@ -9,7 +9,7 @@
         <div class = "grid grid-cols-3 gap-3">
             {% for plant in plants %}
             <div>
-                <a href = "{% url 'plants:detail' plants.id %}">
+                <a href = "{% url 'plant:detail' plant.id %}">
                     <div>
                         <img src="{{ plant.image.url }}" class = "rounded-t-xl"> 
                     </div>

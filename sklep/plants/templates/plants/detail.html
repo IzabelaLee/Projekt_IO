@@ -1,11 +1,42 @@
 {% extends 'core/base.html' %}
 
-{% block title %} {{ plants.name }} {% endblock %}
+{% block title  %}{{ plants.name }}{% endblock %}
 
 {% block content %}
-<div class = "grid grid-cols-5 gap-6">
+<div class="grid grid-cols-5 gap-6">
     <div class="col-span-3">
         <img src="{{ plants.image.url }}" class="rounded-xl">
     </div>
+
+    <div class="col-span-2 p-6 bg-pink-100 rounded-xl">
+        <h1 class="mb-6 text-3xl"> {{plants.name}}</h1>
+        <p class="text-gray-500"><strong>Kraj pochodzenia: </strong>{{plants.country}}</p>
+        <p class="text-gray-500"><strong>Kategoria: </strong>{{plants.category}}</p>
+
+        {% if plants.description %}
+            <p class="text-gray-700"><strong>Opis: </strong><br>{{plants.description}}</p>
+        {% endif %}
+
+        <a href="/" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700"> Powrót na stronę główną</a>
+    </div>
 </div>
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class = "mb-12 text-2xl text-center"> Rośliny o tym samym gatunku </h2>
+
+    <div class = "grid grid-cols-3 gap-3">
+        {% for plant in related_plants %}
+        <div>
+            <a href = "{% url 'plant:detail' plant.id %}">
+                <div>
+                    <img src="{{ plant.image.url }}" class = "rounded-t-xl"> 
+                </div>
+                <div class="p-6 bg-white rounded-b-xl">
+                    <h2 class = "text-2xl">{{ plant.name }}</h2>
+                    <p class ="text-gray-500">Kraj: {{ plant.country }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div> 
 {% endblock %}
